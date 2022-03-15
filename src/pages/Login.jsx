@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/login.css';
 
 const MIN_LENGTH = 7;
 const EMAIL_REGEX = /\S+@\S+\.\S+/i; // cod regex, dica do colega Maycon Cabral
@@ -45,39 +46,47 @@ class Login extends React.Component {
   render() {
     const { email, password, isDisabled } = this.state;
     return (
-      <form>
-        <label htmlFor="email">
-          email
-          <input
-            data-testid="email-input"
-            type="email"
-            placeholder="digite o email"
-            id="email"
-            name="email"
-            value={ email }
-            onChange={ this.handleChange }
-          />
-        </label>
-        <label htmlFor="password">
-          senha
-          <input
-            data-testid="password-input"
-            type="password"
-            placeholder="digite a senha"
-            name="password"
-            value={ password }
-            id="password"
-            onChange={ this.handleChange }
-          />
-        </label>
-        <button
-          type="submit"
-          data-testid="login-submit-btn"
-          disabled={ isDisabled }
-          onClick={ this.handleSubmit }
+      <form className="flex justify-center items-center h-screen bg-cover bg-[url('https://images.pexels.com/photos/255501/pexels-photo-255501.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')]">
+        <div
+          className="rounded
+           py-10 px-10 flex-col flex justify-center items-center"
         >
-          Enter
-        </button>
+          <label htmlFor="email">
+            <input
+              className="inputsLogin"
+              data-testid="email-input"
+              type="email"
+              placeholder="Email"
+              id="email"
+              name="email"
+              value={ email }
+              onChange={ this.handleChange }
+            />
+          </label>
+          <label htmlFor="password">
+            <input
+              className="inputsLogin"
+              data-testid="password-input"
+              type="password"
+              placeholder="Senha"
+              name="password"
+              value={ password }
+              id="password"
+              onChange={ this.handleChange }
+            />
+          </label>
+          <button
+            className="bg-violet-500 hover:bg-violet-600 rounded w-20 h-8 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            type="submit"
+            data-testid="login-submit-btn"
+            disabled={ isDisabled }
+            onClick={ this.handleSubmit }
+          >
+            Enter
+          </button>
+        </div>
       </form>
     );
   }
