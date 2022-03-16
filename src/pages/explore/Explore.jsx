@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import '../../styles/explore.css';
 
 export default class Explore extends Component {
   render() {
@@ -9,20 +10,25 @@ export default class Explore extends Component {
     return (
       <div>
         <Header history={ history } name="Explore" hideSearch />
-        <button
-          onClick={ () => history.push('/explore/foods') }
-          data-testid="explore-foods"
-          type="button"
-        >
-          Explore Foods
-        </button>
-        <button
-          onClick={ () => history.push('/explore/drinks') }
-          data-testid="explore-drinks"
-          type="button"
-        >
-          Explore Drinks
-        </button>
+        <div className="explore-container">
+          <button
+            className="expl-btn"
+            onClick={ () => history.push('/explore/foods') }
+            data-testid="explore-foods"
+            type="button"
+          >
+            Explore Foods
+          </button>
+          <button
+            className="expl-btn"
+            onClick={ () => history.push('/explore/drinks') }
+            data-testid="explore-drinks"
+            type="button"
+          >
+            Explore Drinks
+          </button>
+        </div>
+
         <Footer />
       </div>
     );

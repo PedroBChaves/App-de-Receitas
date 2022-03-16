@@ -9,6 +9,7 @@ import FoodCard from './components/FoodCard';
 import { categoryFoodAPI,
   recipesOfFoodsByCategory } from '../services/categorysAPI';
 import { recipeFoodsOnLoad, recipesFiltered } from '../store/actions';
+import '../styles/foods.css';
 
 class Foods extends Component {
   constructor() {
@@ -89,32 +90,39 @@ class Foods extends Component {
           hideSearch={ false }
           drinkPage={ false }
         />
-
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => searchFood(false) }
-        >
-          All
-        </button>
-
-        {categorys.map(({ strCategory }) => (
+        <div className="bg-purple-200 px-5 grid grid-cols-2 flex items-center">
           <button
+            className="bg-violet-500 hover:bg-violet-800 w-36 rounded
+            justify-center ml-2 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
             type="button"
-            key={ strCategory }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ () => this.onClickCategory(strCategory) }
+            data-testid="All-category-filter"
+            onClick={ () => searchFood(false) }
           >
-            {strCategory}
+            All
           </button>
-        ))}
 
+          {categorys.map(({ strCategory }) => (
+            <button
+              className="bg-violet-500 w-36 hover:bg-violet-800
+            rounded w-90 ml-2 h-6 mt-3 justify-center
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+              type="button"
+              key={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ () => this.onClickCategory(strCategory) }
+            >
+              {strCategory}
+            </button>
+          ))}
+        </div>
         {search && filteredRecipes
           ? <FoodCard allRecipes={ filteredRecipes } />
           : <FoodCard allRecipes={ recipesOnLoad } />}
 
         { filteredRecipes && this.sendToRecipePage(filteredRecipes) }
-
         <Footer />
       </div>
     );

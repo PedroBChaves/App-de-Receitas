@@ -44,33 +44,53 @@ export default class Profile extends Component {
         <Header history={ history } name="Profile" hideSearch />
         <div>
           <span
+            className="pt-20 text-xl font-bold grid justify-items-center text-red"
             data-testid="profile-email"
             type="email"
             name="email"
           >
             {email}
           </span>
-          <button
-            onClick={ () => history.push('/done-recipes') }
-            data-testid="profile-done-btn"
-            type="button"
+          <div
+            className=" p-10
+            mb-2.5 flex flex-col gap-4
+            bg-white text-xl
+            h-screen items-center text-center; "
           >
-            Done Recipes
-          </button>
-          <button
-            onClick={ () => history.push('/favorite-recipes') }
-            data-testid="profile-favorite-btn"
-            type="button"
-          >
-            Favorite Recipes
-          </button>
-          <button
-            onClick={ this.clearLocalStorage }
-            data-testid="profile-logout-btn"
-            type="button"
-          >
-            Logout
-          </button>
+            <button
+              className="bg-violet-500 hover:bg-violet-600 rounded w-20 h-8 mt-3
+              active:bg-violet-700 focus:outline-none text-white font-serif
+              focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500
+              w-full"
+              onClick={ () => history.push('/done-recipes') }
+              data-testid="profile-done-btn"
+              type="button"
+            >
+              Done Recipes
+            </button>
+            <button
+              className="bg-violet-500 hover:bg-violet-600 rounded w-20 h-8 mt-3
+              active:bg-violet-700 focus:outline-none text-white font-serif
+              focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500
+              w-full"
+              onClick={ () => history.push('/favorite-recipes') }
+              data-testid="profile-favorite-btn"
+              type="button"
+            >
+              Favorite Recipes
+            </button>
+            <button
+              className="bg-violet-500 hover:bg-violet-600 rounded w-20 h-8 mt-3
+              active:bg-violet-700 focus:outline-none text-white font-serif
+              focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500
+              w-full"
+              onClick={ this.clearLocalStorage }
+              data-testid="profile-logout-btn"
+              type="button"
+            >
+              Logout
+            </button>
+          </div>
         </div>
         <Footer />
       </div>
