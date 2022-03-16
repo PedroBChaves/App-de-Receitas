@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import Header from './components/Header';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import shareIcon from '../images/shareIcon.svg';
@@ -95,47 +94,67 @@ export default class FavoriteRecipes extends Component {
         >
           Drink
         </button>
-        {favorites && favorites.map((favorite, index) => (
-          <div key={ favorite.id }>
-            <Link to={ `/${favorite.type}s/${favorite.id}` }>
-              <h1 data-testid={ `${index}-horizontal-name` }>{favorite.name}</h1>
-              <img
-                data-testid={ `${index}-horizontal-image` }
-                src={ favorite.image }
-                alt={ favorite.name }
-                className="image"
-              />
-              {favorite.type === 'food' ? (
-                <h3 data-testid={ `${index}-horizontal-top-text` }>
-                  {`${favorite.nationality} - ${favorite.category}`}
-                </h3>) : null}
-              {favorite.alcoholicOrNot.length > 1 ? (
-                <h4 data-testid={ `${index}-horizontal-top-text` }>
-                  {`${favorite.category} - ${favorite.alcoholicOrNot}`}
-                </h4>) : null}
-            </Link>
-            <button
-              data-testid={ `${index}-horizontal-favorite-btn` }
-              onClick={ () => this.removeFav(favorite.id) }
-              type="button"
-              value={ favorite.name }
-              src={ blackHeartIcon }
-            >
-              <img src={ blackHeartIcon } alt="favoritado" />
-            </button>
-            <button
-              data-testid={ `${index}-horizontal-share-btn` }
-              onClick={
-                () => this.shareButton(favorite.id, favorite.type)
-              }
-              type="button"
-              value={ favorite.id }
-              src={ shareIcon }
-            >
-              <img src={ shareIcon } alt="shareIcon" />
-            </button>
-          </div>
-        ))}
+
+        <div className="cards">
+          {favorites && favorites.map((favorite, index) => (
+            <div key={ favorite.id } className="card">
+              <a href={ `/${favorite.type}s/${favorite.id}` }>
+                <img
+                  data-testid={ `${index}-horizontal-image` }
+                  src={ favorite.image }
+                  alt={ favorite.name }
+                  className="image"
+                />
+              </a>
+              <section className="flex flex-col justify-between w-40">
+                <a href={ `/${favorite.type}s/${favorite.id}` }>
+                  <h4
+                    data-testid={ `${index}-horizontal-name` }
+                    className="text-black text-lg"
+                  >
+                    {favorite.name}
+                  </h4>
+                </a>
+                {favorite.type === 'food' ? (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className="infos"
+                  >
+                    {`${favorite.nationality} - ${favorite.category}`}
+                  </p>) : null}
+                {favorite.alcoholicOrNot.length > 1 ? (
+                  <p
+                    data-testid={ `${index}-horizontal-top-text` }
+                    className="infos"
+                  >
+                    {`${favorite.category} - ${favorite.alcoholicOrNot}`}
+                  </p>) : null}
+                <button
+                  data-testid={ `${index}-horizontal-favorite-btn` }
+                  onClick={ () => this.removeFav(favorite.id) }
+                  type="button"
+                  value={ favorite.name }
+                  src={ blackHeartIcon }
+                  className="self-end"
+                >
+                  <img src={ blackHeartIcon } alt="favoritado" />
+                </button>
+                <button
+                  data-testid={ `${index}-horizontal-share-btn` }
+                  onClick={
+                    () => this.shareButton(favorite.id, favorite.type)
+                  }
+                  type="button"
+                  value={ favorite.id }
+                  src={ shareIcon }
+                  className="self-end"
+                >
+                  <img src={ shareIcon } alt="shareIcon" />
+                </button>
+              </section>
+            </div>
+          ))}
+        </div>
         { copied && <p>Link copied!</p>}
       </div>
     );
