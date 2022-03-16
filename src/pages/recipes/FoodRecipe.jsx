@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import getYouTubeID from 'get-youtube-id';
 import { detailsFoodFetch } from '../../services/detailsAPI';
 import { cocktailsAPIOnLoad } from '../../services/APIsOnLoad';
-import '../../styles/btnStartRecipe.css';
-import '../../styles/carousel.css';
 import shareIcon from '../../images/shareIcon.svg';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -30,13 +28,11 @@ export default class FoodRecipe extends Component {
   componentDidMount() {
     this.getIdAndApi();
     this.getRecomendationDrinks();
-    this.alreadyDone();
   }
 
   checkFavorited = () => {
     const { recipes } = this.state;
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
     if (favorites) {
       this.setState({
         favorited: favorites.find((favorite) => favorite.id === recipes.idMeal),
@@ -49,7 +45,6 @@ export default class FoodRecipe extends Component {
     const fetchFood = await detailsFoodFetch(id);
     const ingredients = [];
     const MAX_INGREDIENTS = 20;
-
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (
         fetchFood[0][`strIngredient${i}`] !== ''
@@ -61,16 +56,15 @@ export default class FoodRecipe extends Component {
         );
       }
     }
-
     const videoID = getYouTubeID(fetchFood[0].strYoutube);
     this.setState({
       recipes: fetchFood[0],
       ingredients,
       videoID,
     });
-
     this.checkFavorited();
     this.recipeInProgress();
+    this.alreadyDone();
   }
 
   getRecomendationDrinks = async () => {
@@ -83,9 +77,8 @@ export default class FoodRecipe extends Component {
   alreadyDone = () => {
     const { recipes } = this.state;
     const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
-    console.log(doneRecipes);
     if (doneRecipes) {
-      const check = doneRecipes.map((recipe) => recipe.id === recipes.idMeal);
+      const check = doneRecipes.find((recipe) => recipe.id === recipes.idMeal);
       if (check) {
         this.setState({ showStartButton: false });
       }
@@ -123,14 +116,8 @@ export default class FoodRecipe extends Component {
 
   render() {
     const {
-      recipes,
-      ingredients,
-      videoID, recomendation,
-      disableStartButton,
-      buttonInnerText,
-      copied,
-      favorited,
-      showStartButton,
+      recipes, ingredients, videoID, recomendation, disableStartButton,
+      buttonInnerText, copied, favorited, showStartButton,
     } = this.state;
     const { history } = this.props;
     return (
@@ -139,89 +126,108 @@ export default class FoodRecipe extends Component {
           data-testid="recipe-photo"
           src={ recipes.strMealThumb }
           alt={ recipes.strMeal }
+          className="mx-auto max-w-full"
         />
-        <h1 data-testid="recipe-title">{ recipes.strMeal }</h1>
-
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ this.shareButton }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-        { copied && <p>Link copied!</p>}
-
-        {favorited ? (
-          <button
-            data-testid="favorite-btn"
-            type="button"
-            onClick={ this.favoriteRecipe }
-            src={ blackHeartIcon }
+        <div className="mx-auto max-w-xs flex justify-between px-4 mt-2.5">
+          <h1
+            data-testid="recipe-title"
+            className="text-3xl font-bold"
           >
-            <img src={ blackHeartIcon } alt="favoritado" />
-          </button>
-        ) : (
-          <button
-            data-testid="favorite-btn"
-            type="button"
-            onClick={ this.favoriteRecipe }
-            src={ whiteHeartIcon }
-          >
-            <img src={ whiteHeartIcon } alt="não favoritado" />
-          </button>
-        )}
-
-        <span data-testid="recipe-category">{ recipes.strCategory }</span>
-        {ingredients.map((ingredient, index) => (
-          <div key={ ingredient }>
-            <p
-              data-testid={ `${index}-ingredient-name-and-measure` }
+            { recipes.strMeal }
+          </h1>
+          <div>
+            <button
+              data-testid="share-btn"
+              type="button"
+              onClick={ this.shareButton }
+              className="mr-5"
             >
-              {ingredient[0]}
-              {' '}
-              -
-              {' '}
-              {ingredient[1]}
-            </p>
+              <img src={ shareIcon } alt="share" />
+            </button>
+            { copied && <p>Link copied!</p>}
+            {favorited ? (
+              <button
+                data-testid="favorite-btn"
+                type="button"
+                onClick={ this.favoriteRecipe }
+                src={ blackHeartIcon }
+              >
+                <img src={ blackHeartIcon } alt="favoritado" />
+              </button>
+            ) : (
+              <button
+                data-testid="favorite-btn"
+                type="button"
+                onClick={ this.favoriteRecipe }
+                src={ whiteHeartIcon }
+              >
+                <img src={ whiteHeartIcon } alt="não favoritado" />
+              </button>
+            )}
           </div>
-        ))}
+        </div>
+        <h2
+          data-testid="recipe-category"
+          className="mx-auto max-w-xs pl-5 mb-2.5 text-2xl"
+        >
+          { recipes.strCategory }
+        </h2>
+        <h3 className="mx-auto max-w-xs pl-5 text-xl font-bold">Ingredients</h3>
+        <div className="mx-auto max-w-xs py-2.5 px-5 bg-violet-200">
+          {ingredients.map((ingredient, index) => (
+            <div key={ ingredient }>
+              <p data-testid={ `${index}-ingredient-name-and-measure` }>
+                {`- ${ingredient[0]} - ${ingredient[1]}`}
+              </p>
+            </div>
+          ))}
+        </div>
+        <h3 className="mx-auto max-w-xs pl-5 mt-2.5 text-xl font-bold">Instructions</h3>
+        <p
+          data-testid="instructions"
+          className="mx-auto max-w-xs py-2.5 px-5 bg-violet-200"
+        >
+          { recipes.strInstructions }
+        </p>
+        <h3 className="mx-auto max-w-xs pl-5 mt-2.5 text-xl font-bold">Video</h3>
         <iframe
           title={ recipes.strMeal }
           data-testid="video"
           width="420"
           height="315"
           src={ `https://www.youtube.com/embed/${videoID}` }
+          className="mx-auto max-w-xs"
         />
-        <section className="recomendation">
-          <h4>Recomendações</h4>
-          <section className="carousel">
+        <section className="mx-auto max-w-xs overflow-x-hidden">
+          <h3 className="pl-5 mt-2.5 text-xl font-bold">Recommended</h3>
+          <section className="mx-auto max-w-x flex gap-2.5 overflow-x-scroll">
             { recomendation.map((recipe, index) => (
               <div
                 data-testid={ `${index}-recomendation-card` }
                 key={ recipe.strDrink }
-                className="carousel-item"
+                className="min-w-[48%] mb-5"
               >
                 <img
                   src={ recipe.strDrinkThumb }
                   alt={ recipe.strDrink }
                   data-testid={ `${index}-card-img` }
-                  className="image"
+                  className="rounded"
                 />
-                <p>{ recipe.strCategory }</p>
+                <p className="font-light">{ recipe.strCategory }</p>
                 <p data-testid={ `${index}-recomendation-title` }>{ recipe.strDrink }</p>
               </div>
             )) }
           </section>
         </section>
-        <p data-testid="instructions">{ recipes.strInstructions }</p>
         <footer>
           {showStartButton && (
             <button
               data-testid="start-recipe-btn"
               type="button"
-              className="start-recipe"
               disabled={ disableStartButton }
               onClick={ () => history.push(`/foods/${recipes.idMeal}/in-progress`) }
+              className="flex mx-auto w-80 rounded mt-5 text-xl disabled:bg-slate-500
+                font-bold items-center justify-center h-10 bg-violet-500 text-white"
             >
               {buttonInnerText}
             </button>)}

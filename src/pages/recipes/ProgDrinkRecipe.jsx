@@ -11,13 +11,11 @@ import { changeDoneLocalStorage, changeFavoritesLocalStorage,
 export default class ProgFoodRecipe extends Component {
   constructor() {
     super();
-    this.state = {
-      recipes: [],
+    this.state = { recipes: [],
       ingredients: [],
       copied: false,
       favorited: false,
-      disable: true,
-    };
+      disable: true };
   }
 
   componentDidMount() {
@@ -26,26 +24,18 @@ export default class ProgFoodRecipe extends Component {
   }
 
   checkFavorited = () => {
-    const { recipes } = this.state;
+    const { recipes: { idDrink } } = this.state;
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-
     if (favorites) {
-      this.setState({
-        favorited: favorites.find((favorite) => favorite.id === recipes.idDrink),
-      });
+      this.setState({ favorited: favorites.find((favorite) => favorite.id === idDrink) });
     }
   }
 
   getIdAndApi = async () => {
-    const {
-      match: {
-        params: { id },
-      },
-    } = this.props;
+    const { match: { params: { id } } } = this.props;
     const fetchDrink = await detailsDrinkFetch(id);
     let ingredients = [];
     const MAX_INGREDIENTS = 20;
-
     for (let i = 1; i <= MAX_INGREDIENTS; i += 1) {
       if (
         fetchDrink[0][`strIngredient${i}`] === null
@@ -60,12 +50,7 @@ export default class ProgFoodRecipe extends Component {
         ]);
       }
     }
-
-    this.setState({
-      recipes: fetchDrink[0],
-      ingredients,
-    });
-
+    this.setState({ recipes: fetchDrink[0], ingredients });
     this.getRecipesInProgress();
     this.checkFavorited();
   };
@@ -74,42 +59,31 @@ export default class ProgFoodRecipe extends Component {
     const inProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const { recipes } = this.state;
     const id = recipes.idDrink;
-    if (inProgress && inProgress.cocktails) {
-      this.isChecked(inProgress.cocktails[id]);
-    }
+    if (inProgress && inProgress.cocktails) this.isChecked(inProgress.cocktails[id]);
   };
 
   isChecked = (checkboxes) => {
     const { ingredients } = this.state;
     const checkboxChecked = checkboxes;
-
     if (checkboxChecked) {
       const ingredientsLocalstorage = ingredients.map((ingredient) => {
-        if (checkboxChecked.includes(ingredient[0])) {
-          return [...ingredient, true];
-        }
+        if (checkboxChecked.includes(ingredient[0])) return [...ingredient, true];
         return [...ingredient, false];
       });
-
-      this.setState({
-        ingredients: ingredientsLocalstorage,
+      this.setState({ ingredients: ingredientsLocalstorage,
       }, this.disabledButton(true));
     }
   };
 
   shareButton = () => {
     const { recipes } = this.state;
-    navigator.clipboard.writeText(
-      `http://localhost:3000/drinks/${recipes.idDrink}`,
-    );
+    navigator.clipboard.writeText(`http://localhost:3000/drinks/${recipes.idDrink}`);
     this.setState({ copied: true });
   };
 
   favoriteRecipe = () => {
-    this.setState(
-      ({ favorited }) => ({ favorited: !favorited }),
-      this.setLocalStorage(),
-    );
+    this.setState(({ favorited }) => ({ favorited: !favorited }),
+      this.setLocalStorage());
   };
 
   setLocalStorage = () => {
@@ -125,8 +99,7 @@ export default class ProgFoodRecipe extends Component {
     this.disabledButton(false);
     // caso ja exista algo salvo no localstorage em progresso
     if (inProgress !== null) {
-      changeIngredientsInProgressLocalStorage(recipeId,
-        ingredient, inProgress);
+      changeIngredientsInProgressLocalStorage(recipeId, ingredient, inProgress);
       // caso não exista nada salvo no localstorage ainda
     } else {
       localStorage.setItem('inProgressRecipes', JSON.stringify(addFirstDrink));
@@ -141,13 +114,10 @@ export default class ProgFoodRecipe extends Component {
       if (onLoad) {
         result = inProgress.cocktails[recipes.idDrink].length !== (ingredients.length);
       } else if (inProgress.cocktails[recipes.idDrink]) {
-        result = inProgress.cocktails[recipes.idDrink].length
-        !== (ingredients.length - 1);
+        result = inProgress.cocktails[recipes.idDrink].length !== ingredients.length - 1;
       }
     }
-    this.setState({
-      disable: result,
-    });
+    this.setState({ disable: result });
   }
 
   finishRecipe = () => {
@@ -165,73 +135,100 @@ export default class ProgFoodRecipe extends Component {
           data-testid="recipe-photo"
           src={ recipes.strDrinkThumb }
           alt={ recipes.strDrink }
+          className="mx-auto max-w-full"
         />
-        <h1 data-testid="recipe-title">{recipes.strDrink}</h1>
-        <button
-          data-testid="share-btn"
-          type="button"
-          onClick={ this.shareButton }
-        >
-          <img src={ shareIcon } alt="share" />
-        </button>
-        {copied && <p>Link copied!</p>}
-        {favorited ? (
-          <button
-            data-testid="favorite-btn"
-            type="button"
-            onClick={ this.favoriteRecipe }
-            src={ blackHeartIcon }
+        <div className="mx-auto max-w-xs flex justify-between px-4 mt-2.5">
+          <h1
+            data-testid="recipe-title"
+            className="text-3xl font-bold"
           >
-            <img src={ blackHeartIcon } alt="favoritado" />
-          </button>
-        ) : (
-          <button
-            data-testid="favorite-btn"
-            type="button"
-            onClick={ this.favoriteRecipe }
-            src={ whiteHeartIcon }
-          >
-            <img src={ whiteHeartIcon } alt="não favoritado" />
-          </button>
-        )}
-        <span data-testid="recipe-category">{recipes.strCategory}</span>
-        {ingredients.map((ingredient, index) => (
-          <div key={ ingredient }>
-            <label
-              htmlFor={ recipes.idDrink }
-              data-testid={ `${index}-ingredient-step` }
+            {recipes.strDrink}
+          </h1>
+          <div>
+            <button
+              data-testid="share-btn"
+              type="button"
+              onClick={ this.shareButton }
+              className="mr-5"
             >
-              {ingredient[2] === true ? (
-                <input
-                  /* fonte: https://stackoverflow.com/questions/30975459/add-strikethrough-to-checked-checkbox */
-                  type="checkbox"
-                  id={ recipes.idDrink }
-                  name={ ingredient[0] }
-                  className="ingredients"
-                  onChange={ this.saveIngredients }
-                  checked
-                />
-              ) : (
-                <input
-                  type="checkbox"
-                  id={ recipes.idDrink }
-                  name={ ingredient[0] }
-                  className="ingredients"
-                  onChange={ this.saveIngredients }
-                />
-              )}
-              <span>
-                { `${ingredient[0]} - ${ingredient[1]}`}
-              </span>
-            </label>
+              <img src={ shareIcon } alt="share" />
+            </button>
+            {copied && <p>Link copied!</p>}
+            {favorited ? (
+              <button
+                data-testid="favorite-btn"
+                type="button"
+                onClick={ this.favoriteRecipe }
+                src={ blackHeartIcon }
+              >
+                <img src={ blackHeartIcon } alt="favoritado" />
+              </button>
+            ) : (
+              <button
+                data-testid="favorite-btn"
+                type="button"
+                onClick={ this.favoriteRecipe }
+                src={ whiteHeartIcon }
+              >
+                <img src={ whiteHeartIcon } alt="não favoritado" />
+              </button>
+            )}
           </div>
-        ))}
-        <p data-testid="instructions">{recipes.strInstructions}</p>
+        </div>
+        <h2
+          data-testid="recipe-category"
+          className="mx-auto max-w-xs pl-5 mb-2.5 text-2xl"
+        >
+          {recipes.strCategory}
+        </h2>
+        <h3 className="mx-auto max-w-xs pl-5 text-xl font-bold">Ingredients</h3>
+        <div className="mx-auto max-w-xs py-2.5 px-5 bg-violet-200">
+          {ingredients.map((ingredient, index) => (
+            <div key={ ingredient }>
+              <label
+                htmlFor={ recipes.idDrink }
+                data-testid={ `${index}-ingredient-step` }
+              >
+                {ingredient[2] === true ? (
+                  <input
+                  /* fonte: https://stackoverflow.com/questions/30975459/add-strikethrough-to-checked-checkbox */
+                    type="checkbox"
+                    id={ recipes.idDrink }
+                    name={ ingredient[0] }
+                    className="ingredients"
+                    onChange={ this.saveIngredients }
+                    checked
+                  />
+                ) : (
+                  <input
+                    type="checkbox"
+                    id={ recipes.idDrink }
+                    name={ ingredient[0] }
+                    className="ingredients"
+                    onChange={ this.saveIngredients }
+                  />
+                )}
+                <span>
+                  { `${ingredient[0]} - ${ingredient[1]}`}
+                </span>
+              </label>
+            </div>
+          ))}
+        </div>
+        <h3 className="mx-auto max-w-xs pl-5 mt-2.5 text-xl font-bold">Instructions</h3>
+        <p
+          data-testid="instructions"
+          className="mx-auto max-w-xs py-2.5 px-5 bg-violet-200"
+        >
+          {recipes.strInstructions}
+        </p>
         <button
           data-testid="finish-recipe-btn"
           type="button"
           disabled={ disable }
           onClick={ this.finishRecipe }
+          className="flex mx-auto w-80 rounded mt-5 text-xl disabled:bg-slate-500
+          font-bold items-center justify-center h-10 bg-violet-500 text-white"
         >
           Finish Recipe
         </button>
