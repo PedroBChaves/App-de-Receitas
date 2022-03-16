@@ -73,27 +73,41 @@ export default class FavoriteRecipes extends Component {
     return (
       <div>
         <Header history={ history } name="Favorite Recipes" hideSearch />
-        <button
-          data-testid="filter-by-all-btn"
-          onClick={ this.getFavs }
-          type="button"
-        >
-          All
-        </button>
-        <button
-          data-testid="filter-by-food-btn"
-          onClick={ this.foodFilter }
-          type="button"
-        >
-          Food
-        </button>
-        <button
-          data-testid="filter-by-drink-btn"
-          onClick={ this.drinkFilter }
-          type="button"
-        >
-          Drink
-        </button>
+        <div className="flex justify-between mx-4">
+          <button
+            data-testid="filter-by-all-btn"
+            className="bg-violet-500 hover:bg-violet-800 w-[30%] rounded
+            justify-center mx-1 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            onClick={ this.getFavs }
+            type="button"
+          >
+            All
+          </button>
+          <button
+            data-testid="filter-by-food-btn"
+            className="bg-violet-500 hover:bg-violet-800 w-[30%] rounded
+            justify-center mx-1 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            onClick={ this.foodFilter }
+            type="button"
+          >
+            Food
+          </button>
+          <button
+            data-testid="filter-by-drink-btn"
+            className="bg-violet-500 hover:bg-violet-800 w-[30%] rounded
+            justify-center mx-1 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            onClick={ this.drinkFilter }
+            type="button"
+          >
+            Drink
+          </button>
+        </div>
 
         <div className="cards">
           {favorites && favorites.map((favorite, index) => (

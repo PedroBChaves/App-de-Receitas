@@ -43,29 +43,43 @@ export default class DoneRecipes extends Component {
     return (
       <div>
         <Header history={ history } name="Done Recipes" hideSearch />
-        <button
-          data-testid="filter-by-all-btn"
-          type="button"
-          onClick={ this.getRecipesFromStorage }
-        >
-          All
-        </button>
+        <div className="flex justify-between mx-4">
+          <button
+            data-testid="filter-by-all-btn"
+            className="bg-violet-500 hover:bg-violet-800 w-[30%] rounded
+            justify-center mx-1 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            type="button"
+            onClick={ this.getRecipesFromStorage }
+          >
+            All
+          </button>
 
-        <button
-          data-testid="filter-by-food-btn"
-          type="button"
-          onClick={ () => this.filterFoodsOrDrinks('food') }
-        >
-          Foods
-        </button>
+          <button
+            data-testid="filter-by-food-btn"
+            className="bg-violet-500 hover:bg-violet-800 w-[30%] rounded
+            justify-center mx-1 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            type="button"
+            onClick={ () => this.filterFoodsOrDrinks('food') }
+          >
+            Foods
+          </button>
 
-        <button
-          data-testid="filter-by-drink-btn"
-          type="button"
-          onClick={ () => this.filterFoodsOrDrinks('drink') }
-        >
-          Drinks
-        </button>
+          <button
+            data-testid="filter-by-drink-btn"
+            className="bg-violet-500 hover:bg-violet-800 w-[30%] rounded
+            justify-center mx-1 h-6 mt-3
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+            type="button"
+            onClick={ () => this.filterFoodsOrDrinks('drink') }
+          >
+            Drinks
+          </button>
+        </div>
 
         {copied && <p>Link copied!</p>}
 
