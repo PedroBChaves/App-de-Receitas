@@ -71,21 +71,26 @@ export default class ExploreFoodsNationalities extends Component {
           hideSearch={ false }
           drinkPage={ false }
         />
-        <select
-          onChange={ (event) => this.filterCountriesApi(event.target.value) }
-          data-testid="explore-by-nationality-dropdown"
-        >
-          <option data-testid="All-option" value="All">All</option>
-          {filtredNationalities.map((countrie) => (
-            <option
-              data-testid={ `${countrie}-option` }
-              key={ countrie }
-              value={ countrie }
-            >
-              {countrie}
-            </option>
-          ))}
-        </select>
+        <div className="flex justify-center">
+          <select
+            onChange={ (event) => this.filterCountriesApi(event.target.value) }
+            data-testid="explore-by-nationality-dropdown"
+            className="w-[30%] h-[50%] border-2 bg-violet-500 hover:bg-violet-600
+            hover:border-purple-500 active:bg-violet-700 focus:outline-none px-4 py-2
+            border-slate-400 my-2.5 rounded text-white flex place-self-center md:h-5"
+          >
+            <option data-testid="All-option" value="All">All</option>
+            {filtredNationalities.map((countrie) => (
+              <option
+                data-testid={ `${countrie}-option` }
+                key={ countrie }
+                value={ countrie }
+              >
+                {countrie}
+              </option>
+            ))}
+          </select>
+        </div>
         {recipes.length <= 0 ? (
           <FoodCard allRecipes={ recipesOnLoad } />
         ) : <FoodCard allRecipes={ recipes } /> }

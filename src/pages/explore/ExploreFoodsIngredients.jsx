@@ -42,23 +42,25 @@ class ExploreFoodsIngredients extends Component {
     return (
       <div>
         <Header history={ history } name="Explore Ingredients" hideSearch />
-        {ingredients.map((card, index) => (
-          <button
-            type="button"
-            data-testid={ `${index}-ingredient-card` }
-            onClick={ () => this.handleClickFilter(card) }
-            key={ card }
-          >
-            <div>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={ `https://www.themealdb.com/images/ingredients/${card}-Small.png` }
-                alt={ card }
-              />
-              <h1 data-testid={ `${index}-card-name` }>{card}</h1>
-            </div>
-          </button>
-        ))}
+        <div className="mx-auto max-w-xs grid grid-cols-3 mb-10">
+          {ingredients.map((card, index) => (
+            <button
+              type="button"
+              data-testid={ `${index}-ingredient-card` }
+              onClick={ () => this.handleClickFilter(card) }
+              key={ card }
+            >
+              <div>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={ `https://www.themealdb.com/images/ingredients/${card}-Small.png` }
+                  alt={ card }
+                />
+                <h1 data-testid={ `${index}-card-name` }>{card}</h1>
+              </div>
+            </button>
+          ))}
+        </div>
         <Footer />
       </div>
     );

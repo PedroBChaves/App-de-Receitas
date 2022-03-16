@@ -34,7 +34,9 @@ export default class ExploreFoods extends Component {
         <Header history={ history } name="Explore Foods" hideSearch />
         <div className="explore-container">
           <button
-            className="expl-btn"
+            className="w-full px-4 py-2 border-2 bg-violet-500 hover:bg-violet-600
+            hover:border-purple-500 active:bg-violet-700 focus:outline-none
+            border-slate-400 mb-2.5 rounded text-white"
             onClick={ () => history.push('/explore/foods/ingredients') }
             data-testid="explore-by-ingredient"
             type="button"
@@ -42,7 +44,9 @@ export default class ExploreFoods extends Component {
             By Ingredient
           </button>
           <button
-            className="expl-btn"
+            className="w-full px-4 py-2 border-2 bg-violet-500 hover:bg-violet-600
+            hover:border-purple-500 active:bg-violet-700 focus:outline-none
+            border-slate-400 mb-2.5 rounded text-white"
             onClick={ () => history.push('/explore/foods/nationalities') }
             data-testid="explore-by-nationality"
             type="button"
@@ -50,7 +54,9 @@ export default class ExploreFoods extends Component {
             By Nationality
           </button>
           <button
-            className="expl-btn"
+            className="w-full px-4 py-2 border-2 bg-violet-500 hover:bg-violet-600
+            hover:border-purple-500 active:bg-violet-700 focus:outline-none
+            border-slate-400 mb-2.5 rounded text-white"
             onClick={ () => history.push(`/foods/${id}`) }
             data-testid="explore-surprise"
             type="button"

@@ -12,7 +12,9 @@ export default class Explore extends Component {
         <Header history={ history } name="Explore" hideSearch />
         <div className="explore-container">
           <button
-            className="expl-btn"
+            className="w-full px-4 py-2 border-2 bg-violet-500 hover:bg-violet-600
+            hover:border-purple-500 active:bg-violet-700 focus:outline-none
+            border-slate-400 mb-2.5 rounded text-white"
             onClick={ () => history.push('/explore/foods') }
             data-testid="explore-foods"
             type="button"
@@ -20,7 +22,9 @@ export default class Explore extends Component {
             Explore Foods
           </button>
           <button
-            className="expl-btn"
+            className="w-full px-4 py-2 border-2 bg-violet-500 hover:bg-violet-600
+            hover:border-purple-500 active:bg-violet-700 focus:outline-none
+            border-slate-400 mb-2.5 rounded text-white"
             onClick={ () => history.push('/explore/drinks') }
             data-testid="explore-drinks"
             type="button"
