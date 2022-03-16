@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { randomDrink } from '../../services/randomRecipeAPI';
-import '../../styles/exploreDrink.css';
+import '../../styles/explore.css';
 
 export default class ExploreDrinks extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ export default class ExploreDrinks extends Component {
     return (
       <div>
         <Header history={ history } name="Explore Drinks" hideSearch />
-        <div className="expl-drink-container">
+        <div className="explore-container">
           <button
             className="expl-btn"
             onClick={ () => history.push('/explore/drinks/ingredients') }

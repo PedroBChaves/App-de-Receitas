@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import '../../styles/explorer.css';
+import '../../styles/explore.css';
 
 export default class Explore extends Component {
   render() {
@@ -12,7 +12,7 @@ export default class Explore extends Component {
         <Header history={ history } name="Explore" hideSearch />
         <div className="explore-container">
           <button
-            className="explore"
+            className="expl-btn"
             onClick={ () => history.push('/explore/foods') }
             data-testid="explore-foods"
             type="button"
@@ -20,7 +20,7 @@ export default class Explore extends Component {
             Explore Foods
           </button>
           <button
-            className="explore"
+            className="expl-btn"
             onClick={ () => history.push('/explore/drinks') }
             data-testid="explore-drinks"
             type="button"
