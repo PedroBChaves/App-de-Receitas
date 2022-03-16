@@ -12,7 +12,7 @@ export default class Explore extends Component {
         <Header history={ history } name="Explore" hideSearch />
         <div className="explore-container">
           <button
-            className="explore-food"
+            className="explore"
             onClick={ () => history.push('/explore/foods') }
             data-testid="explore-foods"
             type="button"
@@ -20,7 +20,7 @@ export default class Explore extends Component {
             Explore Foods
           </button>
           <button
-            className="explore-drink"
+            className="explore"
             onClick={ () => history.push('/explore/drinks') }
             data-testid="explore-drinks"
             type="button"

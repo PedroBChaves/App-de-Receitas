@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { randomDrink } from '../../services/randomRecipeAPI';
+import '../../styles/exploreDrink.css';
 
 export default class ExploreDrinks extends Component {
   constructor(props) {
@@ -31,20 +32,25 @@ export default class ExploreDrinks extends Component {
     return (
       <div>
         <Header history={ history } name="Explore Drinks" hideSearch />
-        <button
-          onClick={ () => history.push('/explore/drinks/ingredients') }
-          data-testid="explore-by-ingredient"
-          type="button"
-        >
-          By Ingredient
-        </button>
-        <button
-          onClick={ () => history.push(`/drinks/${id}`) }
-          data-testid="explore-surprise"
-          type="button"
-        >
-          Surprise me!
-        </button>
+        <div className="expl-drink-container">
+          <button
+            className="expl-btn"
+            onClick={ () => history.push('/explore/drinks/ingredients') }
+            data-testid="explore-by-ingredient"
+            type="button"
+          >
+            By Ingredient
+          </button>
+          <button
+            className="expl-btn"
+            onClick={ () => history.push(`/drinks/${id}`) }
+            data-testid="explore-surprise"
+            type="button"
+          >
+            Surprise me!
+          </button>
+        </div>
+
         <Footer />
       </div>
     );
