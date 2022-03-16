@@ -13,6 +13,7 @@ import {
   recipesFiltered,
   responseAPI,
 } from '../../store/actions';
+import '../../styles/header.css';
 
 class Header extends Component {
   constructor(props) {
@@ -109,77 +110,93 @@ class Header extends Component {
     const { searchBar, showBar } = this.state;
     const { name, hideSearch } = this.props;
     return (
-      <header>
-        <button
-          type="button"
-          onClick={ this.sendToProfile }
-          data-testid="profile-top-btn"
-          src={ profileIcon }
-        >
-          <img src={ profileIcon } alt="profileIcon" />
-        </button>
-        <h1 data-testid="page-title">{name}</h1>
-        {!hideSearch && (
-          <button
-            onClick={ this.handleClick }
-            type="button"
-            data-testid="search-top-btn"
-            src={ searchIcon }
-          >
-            <img src={ searchIcon } alt="searchIcon" />
-          </button>
-        )}
-        {showBar ? (
-          <div>
-            <input
-              data-testid="search-input"
-              type="text"
-              name="searchBar"
-              value={ searchBar }
-              onChange={ this.handleChange }
-            />
-            <label htmlFor="ingredient">
-              <input
-                type="radio"
-                id="ingredient"
-                name="searchRadio"
-                value="ingredient"
-                data-testid="ingredient-search-radio"
-                onChange={ this.handleChange }
-              />
-              Ingredient
-            </label>
-            <label htmlFor="name">
-              <input
-                type="radio"
-                id="name"
-                name="searchRadio"
-                value="name"
-                data-testid="name-search-radio"
-                onChange={ this.handleChange }
-              />
-              Name
-            </label>
-            <label htmlFor="first-letter">
-              <input
-                type="radio"
-                id="first-letter"
-                name="searchRadio"
-                value="first-letter"
-                data-testid="first-letter-search-radio"
-                onChange={ this.handleChange }
-              />
-              First letter
-            </label>
+      <header
+        className="bg-gradient-to-b from-purple-400
+      to-purple-200 border border-purple-500"
+      >
+        <div>
+          <h1 className="font-bold ml-40" data-testid="page-title">{name}</h1>
+          <div className="flex-col">
             <button
+              className="ml-20"
               type="button"
-              data-testid="exec-search-btn"
-              onClick={ this.searchRecipe }
+              onClick={ this.sendToProfile }
+              data-testid="profile-top-btn"
+              src={ profileIcon }
             >
-              Search
+              <img src={ profileIcon } alt="profileIcon" />
             </button>
+            {!hideSearch && (
+              <button
+                className="ml-36"
+                onClick={ this.handleClick }
+                type="button"
+                data-testid="search-top-btn"
+                src={ searchIcon }
+              >
+                <img src={ searchIcon } alt="searchIcon" />
+              </button>
+            )}
+            {showBar ? (
+              <div className="flex-col flex items-center">
+                <input
+                  className="mx-auto px-4 py-2 border-2  mb-2.5
+                  text-gray-700 bg-white border-slate-200
+                  rounded focus:border-purple-500 focus:bg-white leading-tight
+                  focus:border-purple-500 focus:outline-none"
+                  data-testid="search-input"
+                  type="text"
+                  name="searchBar"
+                  value={ searchBar }
+                  onChange={ this.handleChange }
+                />
+                <label className="font-bold" htmlFor="ingredient">
+                  <input
+                    type="radio"
+                    id="ingredient"
+                    name="searchRadio"
+                    value="ingredient"
+                    data-testid="ingredient-search-radio"
+                    onChange={ this.handleChange }
+                  />
+                  Ingredient
+                </label>
+                <label className="mr-8 font-bold" htmlFor="name">
+                  <input
+                    type="radio"
+                    id="name"
+                    name="searchRadio"
+                    value="name"
+                    data-testid="name-search-radio"
+                    onChange={ this.handleChange }
+                  />
+                  Name
+                </label>
+                <label className="font-bold" htmlFor="first-letter">
+                  <input
+                    type="radio"
+                    id="first-letter"
+                    name="searchRadio"
+                    value="first-letter"
+                    data-testid="first-letter-search-radio"
+                    onChange={ this.handleChange }
+                  />
+                  First letter
+                </label>
+                <button
+                  className="bg-violet-500 hover:bg-violet-600 rounded my-2 w-20 h-8 mt-3
+                  active:bg-violet-700 focus:outline-none text-white font-serif
+                  focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+                  type="button"
+                  data-testid="exec-search-btn"
+                  onClick={ this.searchRecipe }
+                >
+                  Search
+                </button>
+              </div>
+            ) : null}
           </div>
-        ) : null}
+        </div>
       </header>
     );
   }
