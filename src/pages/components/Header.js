@@ -112,7 +112,7 @@ class Header extends Component {
     return (
       <header
         className="bg-gradient-to-b from-purple-400
-      to-purple-200 border border-purple-500"
+      to-purple-200 border-purple-500"
       >
         <div>
           <h1 className="font-bold ml-40" data-testid="page-title">{name}</h1>
@@ -140,7 +140,7 @@ class Header extends Component {
             {showBar ? (
               <div className="flex-col flex items-center">
                 <input
-                  className="mx-auto px-4 py-2 border-2  mb-2.5
+                  className="mx-auto px-4 py-2 border-2 mb-2.5
                   text-gray-700 bg-white border-slate-200
                   rounded focus:border-purple-500 focus:bg-white leading-tight
                   focus:border-purple-500 focus:outline-none"

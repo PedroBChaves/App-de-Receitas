@@ -7,14 +7,24 @@ class DrinkCard extends React.Component {
     return (
       <div>
         {allRecipes.map((recipe, index) => (
-          <div data-testid={ `${index}-recipe-card` } key={ recipe.idDrink }>
+          <div
+            className="bg-purple-200"
+            data-testid={ `${index}-recipe-card` }
+            key={ recipe.idDrink }
+          >
+            <p
+              className="font-bold flex flex justify-center bg-purple-200"
+              data-testid={ `${index}-card-name` }
+            >
+              { ` Como fazer: ${recipe.strDrink}`}
+
+            </p>
             <a href={ `/drinks/${recipe.idDrink}` }>
               <img
                 src={ recipe.strDrinkThumb }
                 alt={ recipe.strDrink }
                 data-testid={ `${index}-card-img` }
               />
-              <p data-testid={ `${index}-card-name` }>{ recipe.strDrink }</p>
             </a>
           </div>
         ))}

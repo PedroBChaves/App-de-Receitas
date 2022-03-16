@@ -9,6 +9,7 @@ import { cocktailsAPIOnLoad } from '../services/APIsOnLoad';
 import { categoryCocktailAPI,
   recipesOfCocktailsByCategory } from '../services/categorysAPI';
 import { recipeDrinksOnLoad, recipesFiltered } from '../store/actions';
+import '../styles/foods.css';
 
 class Drinks extends Component {
   constructor() {
@@ -85,26 +86,37 @@ class Drinks extends Component {
           hideSearch={ false }
           drinkPage
         />
-
-        <button
-          type="button"
-          data-testid="All-category-filter"
-          onClick={ () => searchDrink(false) }
+        <div
+          className="bg-purple-200
+         px-5 grid grid-cols-2 flex items-center"
         >
-          All
-        </button>
-
-        {categorys.map(({ strCategory }) => (
           <button
+            className="bg-violet-500 hover:bg-violet-800
+        rounded flex-col flex items-center w-36 ml-2
+        active:bg-violet-700 focus:outline-none text-white font-serif
+        focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
             type="button"
-            key={ strCategory }
-            data-testid={ `${strCategory}-category-filter` }
-            onClick={ () => this.onClickCategory(strCategory) }
+            data-testid="All-category-filter"
+            onClick={ () => searchDrink(false) }
           >
-            {strCategory}
+            All
           </button>
-        ))}
 
+          {categorys.map(({ strCategory }) => (
+            <button
+              className="bg-violet-500 hover:bg-violet-800
+            rounded flex-col w-38 flex items-center m-2
+            active:bg-violet-700 focus:outline-none text-white font-serif
+            focus:ring focus:ring-violet-300 hover:shadow-lg disabled:bg-slate-500"
+              type="button"
+              key={ strCategory }
+              data-testid={ `${strCategory}-category-filter` }
+              onClick={ () => this.onClickCategory(strCategory) }
+            >
+              {strCategory}
+            </button>
+          ))}
+        </div>
         {search && filteredRecipes
           ? <DrinkCard allRecipes={ filteredRecipes } />
           : <DrinkCard allRecipes={ recipesOnLoad } />}
