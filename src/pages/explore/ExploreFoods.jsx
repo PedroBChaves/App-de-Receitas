@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import { randomFood } from '../../services/randomRecipeAPI';
+import '../../styles/explore.css';
 
 export default class ExploreFoods extends Component {
   constructor(props) {
@@ -31,27 +32,32 @@ export default class ExploreFoods extends Component {
     return (
       <div>
         <Header history={ history } name="Explore Foods" hideSearch />
-        <button
-          onClick={ () => history.push('/explore/foods/ingredients') }
-          data-testid="explore-by-ingredient"
-          type="button"
-        >
-          By Ingredient
-        </button>
-        <button
-          onClick={ () => history.push('/explore/foods/nationalities') }
-          data-testid="explore-by-nationality"
-          type="button"
-        >
-          By Nationality
-        </button>
-        <button
-          onClick={ () => history.push(`/foods/${id}`) }
-          data-testid="explore-surprise"
-          type="button"
-        >
-          Surprise me!
-        </button>
+        <div className="explore-container">
+          <button
+            className="expl-btn"
+            onClick={ () => history.push('/explore/foods/ingredients') }
+            data-testid="explore-by-ingredient"
+            type="button"
+          >
+            By Ingredient
+          </button>
+          <button
+            className="expl-btn"
+            onClick={ () => history.push('/explore/foods/nationalities') }
+            data-testid="explore-by-nationality"
+            type="button"
+          >
+            By Nationality
+          </button>
+          <button
+            className="expl-btn"
+            onClick={ () => history.push(`/foods/${id}`) }
+            data-testid="explore-surprise"
+            type="button"
+          >
+            Surprise me!
+          </button>
+        </div>
         <Footer />
       </div>
     );
