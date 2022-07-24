@@ -1,16 +1,12 @@
-# 🚧 README em construção 🚧
+# App de Receitas
 
-<!-- Olá, Tryber!
+Esse projeto visa prover um exemplo de aplicação de receitas no qual foi desenvolvido o FrontEnd em grupo com(Vitor Emerich, Dayana Dias, Matheus Montenegro e Júlia Andrade) e o utilizando as APIs TheMealDB e The CockTailDB como base de dados.
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+## Como Rodar
 
-É essencial que você preencha esse documento por conta própria, ok?
+1. Baixe o projeto utilizando o comando `git clone git@github.com:PedroBChaves/App-de-Receitas.git`
+2. Execute no terminal os seguintes comandos:
+3. `npm install`
+4. `npm start`
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
-
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
-
--->
+Feito isso, acesse o `http://localhost:3000/` no navegador.
