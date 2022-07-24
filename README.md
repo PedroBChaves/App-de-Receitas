@@ -1,6 +1,6 @@
 # App de Receitas
 
-Esse projeto visa prover um exemplo de aplicação de receitas no qual foi desenvolvido o FrontEnd em grupo com(Vitor Emerich, Dayana Dias, Matheus Montenegro e Júlia Andrade) e o utilizando as APIs TheMealDB e The CockTailDB como base de dados.
+Esse projeto visa prover um exemplo de aplicação de receitas no qual foi desenvolvido o FrontEnd, utilizando React.JS, em grupo com(Vitor Emerich, Dayana Dias, Matheus Montenegro e Júlia Andrade) e o utilizando as APIs TheMealDB e The CockTailDB como base de dados.
 
 ## Como Rodar
 
